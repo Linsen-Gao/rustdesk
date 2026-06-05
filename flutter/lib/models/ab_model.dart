@@ -1415,6 +1415,12 @@ class Ab extends BaseAb {
     if (!await _fetchPeers(tmpPeers, quiet: quiet)) {
       ret = false;
     }
+    // Sort: put peers with sameServer first (current device on top)
+    tmpPeers.sort((a, b) {
+      if (a.sameServer == true && b.sameServer != true) return -1;
+      if (a.sameServer != true && b.sameServer == true) return 1;
+      return 0;
+    });
     peers.value = tmpPeers;
     List<AbTag> tmpTags = [];
     if (!await _fetchTags(tmpTags, quiet: quiet)) {

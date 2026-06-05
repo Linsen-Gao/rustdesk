@@ -316,6 +316,8 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("Are you sure you want to restart", ""),
         ("Restarting remote device", ""),
         ("remote_restarting_tip", ""),
+        ("Shutdown remote device", ""),
+        ("Are you sure you want to shutdown", ""),
         ("Copied", ""),
         ("Exit Fullscreen", ""),
         ("Fullscreen", ""),

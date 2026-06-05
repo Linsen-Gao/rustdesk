@@ -93,6 +93,8 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("Ignore Battery Optimizations", "Ignore battery optimizations"),
         ("android_open_battery_optimizations_tip", "If you want to disable this feature, please go to the next RustDesk application settings page, find and enter [Battery], Uncheck [Unrestricted]"),
         ("remote_restarting_tip", "Remote device is restarting, please close this message box and reconnect with permanent password after a while"),
+        ("Shutdown remote device", "Shutdown remote device"),
+        ("Are you sure you want to shutdown", "Are you sure you want to shutdown"),
         ("Exit Fullscreen", "Exit fullscreen"),
         ("Mobile Actions", "Mobile actions"),
         ("Select Monitor", "Select monitor"),

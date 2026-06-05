@@ -2779,6 +2779,14 @@ impl LoginConfigHandler {
         msg_out
     }
 
+    pub fn shutdown_remote_device(&self) -> Message {
+        let mut misc = Misc::new();
+        misc.set_shutdown_remote_device(true);
+        let mut msg_out = Message::new();
+        msg_out.set_misc(misc);
+        msg_out
+    }
+
     pub fn get_conn_token(&self) -> Option<String> {
         if self.password.is_empty() {
             return None;
