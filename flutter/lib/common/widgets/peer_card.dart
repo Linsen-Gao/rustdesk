@@ -620,6 +620,21 @@ abstract class BasePeerCard extends StatelessWidget {
   }
 
   @protected
+  MenuEntryBase<String> _shutdownAction(BuildContext context) {
+    return MenuEntryButton<String>(
+      childBuilder: (TextStyle? style) => Text(
+        translate('Shutdown remote device'),
+        style: style,
+      ),
+      proc: () {
+        connectInPeerTab(context, peer, tab);
+      },
+      padding: menuPadding,
+      dismissOnClicked: true,
+    );
+  }
+
+  @protected
   MenuEntryBase<String> _tcpTunnelingAction(BuildContext context) {
     return _connectCommonAction(
       context,
@@ -976,6 +991,11 @@ class RecentPeerCard extends BasePeerCard {
     if (peer.platform == kPeerPlatformWindows) {
       menuItems.add(_terminalRunAsAdminAction(context));
     }
+    if (peer.platform == kPeerPlatformWindows ||
+        peer.platform == kPeerPlatformLinux ||
+        peer.platform == kPeerPlatformMacOS) {
+      menuItems.add(_shutdownAction(context));
+    }
 
     final List favs = (await bind.mainGetFav()).toList();
 
@@ -1041,6 +1061,11 @@ class FavoritePeerCard extends BasePeerCard {
     if (peer.platform == kPeerPlatformWindows) {
       menuItems.add(_terminalRunAsAdminAction(context));
     }
+    if (peer.platform == kPeerPlatformWindows ||
+        peer.platform == kPeerPlatformLinux ||
+        peer.platform == kPeerPlatformMacOS) {
+      menuItems.add(_shutdownAction(context));
+    }
 
     if (isDesktop && peer.platform != kPeerPlatformAndroid) {
       menuItems.add(_tcpTunnelingAction(context));
@@ -1101,6 +1126,11 @@ class DiscoveredPeerCard extends BasePeerCard {
     if (peer.platform == kPeerPlatformWindows) {
       menuItems.add(_terminalRunAsAdminAction(context));
     }
+    if (peer.platform == kPeerPlatformWindows ||
+        peer.platform == kPeerPlatformLinux ||
+        peer.platform == kPeerPlatformMacOS) {
+      menuItems.add(_shutdownAction(context));
+    }
 
     final List favs = (await bind.mainGetFav()).toList();
 
@@ -1159,6 +1189,11 @@ class AddressBookPeerCard extends BasePeerCard {
 
     if (peer.platform == kPeerPlatformWindows) {
       menuItems.add(_terminalRunAsAdminAction(context));
+    }
+    if (peer.platform == kPeerPlatformWindows ||
+        peer.platform == kPeerPlatformLinux ||
+        peer.platform == kPeerPlatformMacOS) {
+      menuItems.add(_shutdownAction(context));
     }
 
     if (isDesktop && peer.platform != kPeerPlatformAndroid) {
@@ -1316,6 +1351,11 @@ class MyGroupPeerCard extends BasePeerCard {
 
     if (peer.platform == kPeerPlatformWindows) {
       menuItems.add(_terminalRunAsAdminAction(context));
+    }
+    if (peer.platform == kPeerPlatformWindows ||
+        peer.platform == kPeerPlatformLinux ||
+        peer.platform == kPeerPlatformMacOS) {
+      menuItems.add(_shutdownAction(context));
     }
 
     if (isDesktop && peer.platform != kPeerPlatformAndroid) {

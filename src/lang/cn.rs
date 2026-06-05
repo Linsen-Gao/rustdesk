@@ -317,6 +317,8 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("Restarting remote device", "正在重启远程设备"),
         ("remote_restarting_tip", "远程设备正在重启, 请关闭当前提示框, 并在一段时间后使用永久密码重新连接"),
         ("Copied", "已复制"),
+        ("Shutdown remote device", "远程关机"),
+        ("Are you sure you want to shutdown", "确定要远程关机"),
         ("Exit Fullscreen", "退出全屏"),
         ("Fullscreen", "全屏"),
         ("Mobile Actions", "移动端操作"),
