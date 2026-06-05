@@ -15,6 +15,7 @@ import '../../models/platform_model.dart';
 import '../../desktop/widgets/material_mod_popup_menu.dart' as mod_menu;
 import '../../desktop/widgets/popup_menu.dart';
 import 'dart:math' as math;
+import 'dart:ui';
 
 typedef PopupMenuEntryBuilder = Future<List<mod_menu.PopupMenuEntry<String>>>
     Function(BuildContext);
@@ -93,12 +94,13 @@ class _PeerCardState extends State<_PeerCard>
 
   Widget _buildLandscape() {
     final peer = super.widget.peer;
+    final radius = peerCardUiType.value == PeerUiType.grid ? _cardRadius : _tileRadius;
     var deco = Rx<BoxDecoration?>(
       BoxDecoration(
-        border: Border.all(color: Colors.transparent, width: _borderWidth),
-        borderRadius: BorderRadius.circular(
-          peerCardUiType.value == PeerUiType.grid ? _cardRadius : _tileRadius,
-        ),
+        border: Border.all(
+            color: Colors.white.withOpacity(0.15), width: _borderWidth),
+        borderRadius: BorderRadius.circular(radius),
+        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.45),
       ),
     );
     return MouseRegion(
@@ -107,23 +109,28 @@ class _PeerCardState extends State<_PeerCard>
           border: Border.all(
               color: Theme.of(context).colorScheme.primary,
               width: _borderWidth),
-          borderRadius: BorderRadius.circular(
-            peerCardUiType.value == PeerUiType.grid ? _cardRadius : _tileRadius,
-          ),
+          borderRadius: BorderRadius.circular(radius),
+          color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.6),
         );
       },
       onExit: (evt) {
         deco.value = BoxDecoration(
-          border: Border.all(color: Colors.transparent, width: _borderWidth),
-          borderRadius: BorderRadius.circular(
-            peerCardUiType.value == PeerUiType.grid ? _cardRadius : _tileRadius,
-          ),
+          border: Border.all(
+              color: Colors.white.withOpacity(0.15), width: _borderWidth),
+          borderRadius: BorderRadius.circular(radius),
+          color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.45),
         );
       },
       child: gestureDetector(
+          child: ClipRRect(
+        borderRadius: BorderRadius.circular(radius),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
           child: Obx(() => peerCardUiType.value == PeerUiType.grid
               ? _buildPeerCard(context, peer, deco)
-              : _buildPeerTile(context, peer, deco))),
+              : _buildPeerTile(context, peer, deco)),
+        ),
+      )),
     );
   }
 
