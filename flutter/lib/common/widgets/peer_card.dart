@@ -627,6 +627,7 @@ abstract class BasePeerCard extends StatelessWidget {
         style: style,
       ),
       proc: () {
+        stateGlobal.pendingShutdownPeerId.value = peer.id;
         connectInPeerTab(context, peer, tab);
       },
       padding: menuPadding,

@@ -150,6 +150,17 @@ class _RemotePageState extends State<RemotePage>
 
     _ffi.ffiModel.updateEventListener(sessionId, widget.id);
     if (!isWeb) bind.pluginSyncUi(syncTo: kAppTypeDesktopRemote);
+
+    // Check if shutdown was requested from peer card menu
+    ever(_ffi.ffiModel.pi.isSet, (_) {
+      if (_ffi.ffiModel.pi.isSet.isTrue &&
+          stateGlobal.pendingShutdownPeerId.value == widget.id) {
+        stateGlobal.pendingShutdownPeerId.value = '';
+        final pi = _ffi.ffiModel.pi;
+        showShutdownRemoteDevice(
+            pi, widget.id, _ffi.sessionId, _ffi.dialogManager);
+      }
+    });
     _ffi.qualityMonitorModel.checkShowQualityMonitor(sessionId);
     _ffi.dialogManager.loadMobileActionsOverlayVisible();
     WidgetsBinding.instance.addPostFrameCallback((_) {
